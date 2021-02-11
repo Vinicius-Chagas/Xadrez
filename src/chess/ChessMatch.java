@@ -1,6 +1,10 @@
 package chess;
 
 import boardGame.Board;
+import boardGame.Position;
+import chess.pieces.Rook;
+
+import java.awt.*;
 
 public class ChessMatch {
     private Board board;
@@ -21,5 +25,15 @@ public class ChessMatch {
             }
         }
         return mat;
+    }
+
+    private void initialSetup()
+    {
+        board.PlacePiece(new Rook(board, Color.WHITE), new Position(2, 4));
+    }
+
+    private void placeNewPiece(char column, int row, ChessPiece piece)
+    {
+        board.PlacePiece(piece, new ChessPosition(column, row).toPosition());
     }
 }
