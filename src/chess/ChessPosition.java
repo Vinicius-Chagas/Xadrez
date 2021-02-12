@@ -7,7 +7,7 @@ public class ChessPosition {
     private int row;
 
     public ChessPosition(char column, int row) {
-        if(column < 'a' || column > 'h' || row < 1 || column > 8)
+        if(column < 'a' || column > 'h' || row < 1 || row > 8)
         {
             throw new ChessException("Error instantiating ChessPosition. Valid values are from A1 to H8.");
         }
