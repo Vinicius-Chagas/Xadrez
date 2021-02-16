@@ -6,9 +6,6 @@ import boardGame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
-
-import java.awt.*;
-
 public class ChessMatch {
     private Board board;
 
@@ -31,20 +28,39 @@ public class ChessMatch {
         return mat;
     }
 
+    public boolean[][] PossibleMoves(ChessPosition SourcePosition)
+    {
+        Position position = SourcePosition.toPosition();
+        ValidateSourcePosition(position);
+        return board.piece(position).PossibleMoves();
+    }
     public ChessPiece PerformChessMove(ChessPosition SourcePosition, ChessPosition TargetPosition)
     {
         Position source = SourcePosition.toPosition();
         Position target = TargetPosition.toPosition();
-        ValidadeSourcePosition(source);
+        ValidateSourcePosition(source);
+        ValidateTargetPosition(source, target);
         Piece CapturedPiece = MakeMove(source, target);
         return (ChessPiece)CapturedPiece;
     }
 
-    private void ValidadeSourcePosition(Position position)
+    private void ValidateSourcePosition(Position position)
     {
         if(!board.ThereIsAPiece(position))
         {
             throw new ChessException("There is no piece on source position.");
+        }
+        if(!board.piece(position).IsThereAnyPossibleMove())
+        {
+            throw new ChessException("There is no possible moves for the chosen piece");
+        }
+    }
+
+    private void ValidateTargetPosition(Position source, Position target)
+    {
+        if(!board.piece(source).PossibleMove(target))
+        {
+            throw new ChessException("The chosen piece can not move to target position");
         }
     }
 
@@ -62,7 +78,7 @@ public class ChessMatch {
     }
 
     private void initialSetup() {
-            placeNewPiece('c', 1, new Rook(board, Color.WHITE));
+        placeNewPiece('c', 1, new Rook(board, Color.WHITE));
         placeNewPiece('c', 2, new Rook(board, Color.WHITE));
         placeNewPiece('d', 2, new Rook(board, Color.WHITE));
         placeNewPiece('e', 2, new Rook(board, Color.WHITE));

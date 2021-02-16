@@ -2,8 +2,8 @@ package chess.pieces;
 
 import boardGame.Board;
 import chess.ChessPiece;
+import chess.Color;
 
-import java.awt.*;
 
 public class King extends ChessPiece {
     public King(Board board, Color color) {
@@ -14,5 +14,11 @@ public class King extends ChessPiece {
     public String toString()
     {
         return "K";
+    }
+
+    @Override
+    public boolean[][] PossibleMoves() {
+        boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+        return null;
     }
 }

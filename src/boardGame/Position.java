@@ -17,8 +17,22 @@ public class Position {
         return column;
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
     @Override
     public String toString(){
         return row + ", " + column;
+    }
+
+    public void SetValues(int row, int column)
+    {
+        this.row = row;
+        this.column = column;
     }
 }
