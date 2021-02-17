@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardGame.Board;
+import boardGame.Position;
 import chess.ChessPiece;
 import chess.Color;
 
@@ -16,9 +17,65 @@ public class King extends ChessPiece {
         return "K";
     }
 
+    private boolean canMove(Position position) {
+        ChessPiece p = (ChessPiece)getBoard().piece(position);
+        return p == null || p.getColor() != getColor();
+    }
+
     @Override
     public boolean[][] PossibleMoves() {
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
-        return null;
+
+        Position p = new Position(0, 0);
+
+        // above
+        p.SetValues(position.getRow() - 1, position.getColumn());
+        if (getBoard().PositionExists(p) && canMove(p)) {
+            mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        // below
+        p.SetValues(position.getRow() + 1, position.getColumn());
+        if (getBoard().PositionExists(p) && canMove(p)) {
+            mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        // left
+        p.SetValues(position.getRow(), position.getColumn() - 1);
+        if (getBoard().PositionExists(p) && canMove(p)) {
+            mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        // right
+        p.SetValues(position.getRow(), position.getColumn() + 1);
+        if (getBoard().PositionExists(p) && canMove(p)) {
+            mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        // nw
+        p.SetValues(position.getRow() - 1, position.getColumn() - 1);
+        if (getBoard().PositionExists(p) && canMove(p)) {
+            mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        // ne
+        p.SetValues(position.getRow() - 1, position.getColumn() + 1);
+        if (getBoard().PositionExists(p) && canMove(p)) {
+            mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        // sw
+        p.SetValues(position.getRow() + 1, position.getColumn() - 1);
+        if (getBoard().PositionExists(p) && canMove(p)) {
+            mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        // se
+        p.SetValues(position.getRow() + 1, position.getColumn() + 1);
+        if (getBoard().PositionExists(p) && canMove(p)) {
+            mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        return mat;
     }
 }
